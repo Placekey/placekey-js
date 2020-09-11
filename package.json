@@ -1,6 +1,6 @@
 {
   "name": "placekey-js",
-  "description": "JavaScript library for working with Safegraph Placekeys.",
+  "description": "JavaScript library for working with Placekeys.",
   "version": "0.1.0",
   "license": "Apache 2.0",
   "private": true,
