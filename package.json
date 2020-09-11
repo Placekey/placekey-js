@@ -1,0 +1,48 @@
+{
+  "name": "placekey-js",
+  "description": "JavaScript library for working with Safegraph Placekeys.",
+  "version": "0.1.0",
+  "license": "Apache 2.0",
+  "private": true,
+  "author": "Unfolded, Inc.",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SafeGraphInc/placekey-py.git"
+  },
+  "types": "src/index.d.ts",
+  "main": "dist/es5/index.js",
+  "module": "dist/esm/index.js",
+  "esnext": "dist/es6/index.js",
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "bootstrap": "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true yarn && ocular-bootstrap",
+    "start": "(cd examples/main && (path-exists node_modules || npm i) && npm run start-local)",
+    "build": "ocular-clean && ocular-build",
+    "lint": "ocular-lint",
+    "cover:node": "nyc --silent ocular-test node",
+    "cover:browser": "MOCK_BROWSER=true nyc --silent --no-clean ocular-test node",
+    "cover": "npm run cover:node && npm run cover:browser && nyc report --reporter=lcov",
+    "publish-prod": "ocular-publish prod",
+    "publish-beta": "ocular-publish beta",
+    "test": "ocular-test"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "dependencies": {
+    "@babel/runtime": "^7.0.0",
+    "h3-js": "^3.6.3"
+  },
+  "devDependencies": {
+    "eslint-config-uber-jsx": "^3.0.0",
+    "eslint-plugin-react": "~7.11.1",
+    "coveralls": "^3.0.0",
+    "ocular-dev-tools": "^0.1.0",
+    "jsdom": "^15.0.0",
+    "pre-commit": "^1.2.2",
+    "reify": "^0.18.1"
+  }
+}
