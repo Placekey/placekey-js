@@ -1,6 +1,6 @@
 # Placekey
 
-A JavaScript library for working with SafeGraph Placekeys.
+A JavaScript library for working with Placekeys.
 
 ## Usage
 
