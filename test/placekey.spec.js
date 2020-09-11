@@ -1,8 +1,5 @@
 // Placekey tests
 
-// These tests were ported from python, so disable overly Python-unfriendly linter rules
-/* eslint-disable dot-notation, camelcase */
-
 import test from 'tape-promise/tape';
 import {assertAlmostEqual} from './utils/assertions';
 
@@ -21,46 +18,6 @@ import {
 
 import SAMPLES from './data/example_geos.json';
 import DISTANCE_SAMPLES from './data/example_distances.json';
-
-// from ..placekey import _clean_string, _dirty_string
-
-// class TestPlacekey(unittest.TestCase):
-//     def setUp(self):
-//         def parse(line):
-//             tokens = line.split(',')
-//             return {
-//                 'lat': float(tokens[0]),
-//                 'long': float(tokens[1]),
-//                 'h3_r10': tokens[2],
-//                 'h3_int_r10': int(tokens[3]),
-//                 'placekey': tokens[4],
-//                 'h3_lat': float(tokens[5]),
-//                 'h3_long': float(tokens[6]),
-//                 'info': tokens[7]
-//             }
-
-/*
-        with open('placekey/tests/example_geos.csv', 'r') as f:
-            next(f)  # skip header
-            self.sample = [parse(l.strip()) for l in f.readlines()]
-
-        def parse_distances(line):
-            tokens = line.split('\t')
-            return {
-                'placekey_1': tokens[0],
-                'geo_1': [float(x) for x in tokens[1][1:-1].split(',')],
-                'placekey_2': tokens[2],
-                'geo_2': [float(x) for x in tokens[3][1:-1].split(',')],
-                'distance': float(tokens[4]),
-            }
-
-        with open('placekey/tests/example_distances.csv') as f:
-            next(f)  # skip header
-            DISTANCE_SAMPLES = [parse_distances(l.strip())
-                                     for l in f.readlines()]
-  t.end();
-});
-*/
 
 test.skip('stringCleaning', t => {
   /*
@@ -101,31 +58,31 @@ test('placekeyIsValid', t => {
 test('placekeyToH3', t => {
   for (const row of SAMPLES) {
     t.equal(
-      placekeyToH3(row['placekey']),
-      row['h3_r10'],
-      `converted placekey (${row['placekey']}) did not match h3 at resolution 10 (${row['h3_r10']})`
+      placekeyToH3(row.placekey),
+      row.h3_r10,
+      `converted placekey (${row.placekey}) did not match h3 at resolution 10 (${row.h3_r10})`
     );
   }
   t.end();
 });
 
 test('placekeyToGeo', t => {
-  const matching_places = 3;
+  const matchingPlaces = 3;
   for (const row of SAMPLES) {
-    const [lat, long] = placekeyToGeo(row['placekey']);
+    const [lat, long] = placekeyToGeo(row.placekey);
     assertAlmostEqual(
       t,
       lat,
-      row['h3_lat'],
-      matching_places,
-      `placekey's latitude (${lat}) too far from associated geo's latitude (${row['h3_lat']})`
+      row.h3_lat,
+      matchingPlaces,
+      `placekey's latitude (${lat}) too far from associated geo's latitude (${row.h3_lat})`
     );
     assertAlmostEqual(
       t,
       long,
-      row['h3_long'],
-      matching_places,
-      `placekey's longitude (${long}) too far from associated geo's longitude (${row['h3_long']})`
+      row.h3_long,
+      matchingPlaces,
+      `placekey's longitude (${long}) too far from associated geo's longitude (${row.h3_long})`
     );
   }
   t.end();
@@ -134,8 +91,8 @@ test('placekeyToGeo', t => {
 test.skip('h3ToPlacekey', t => {
   for (const row of SAMPLES) {
     t.equal(
-      h3ToPlacekey(row['h3_r10']),
-      row['placekey'],
+      h3ToPlacekey(row.h3_r10),
+      row.placekey,
       'converted h3 ({}) did not match placekey ({})'
       // .format(
       //   h3ToPlacekey(row['h3_r10']),
@@ -148,10 +105,10 @@ test.skip('h3ToPlacekey', t => {
 
 test.skip('geoToPlacekey', t => {
   for (const row of SAMPLES) {
-    const placekey = geoToPlacekey(row['lat'], row['long']);
+    const placekey = geoToPlacekey(row.lat, row.long);
     t.equal(
       placekey,
-      row['placekey'],
+      row.placekey,
       'converted geo ({}, {}) did not match placekey ({})'
       // .format(
       //   row['lat'],
@@ -190,7 +147,7 @@ test.skip('placekeyDistance', t => {
 
   for (const sample of DISTANCE_SAMPLES) {
     const difference = Math.abs(
-      placekeyDistance(sample['placekey_1'], sample['placekey_2']) - sample['distance']
+      placekeyDistance(sample.placekey_1, sample.placekey_2) - sample.distance
     );
     t.assertLessEqual(difference, 0.1, 'distances too far apart');
   }

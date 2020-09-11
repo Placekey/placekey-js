@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "jsx": "react",
+    "allowJs": true,
+    "checkJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "placekey-js": ["src"],
+      "placekey-js/test": ["test"],
+      "test": ["test"]
+    }
+  },
+  "exclude":[
+    "node_modules",
+    "**/dist/**/*"
+  ]
+}
