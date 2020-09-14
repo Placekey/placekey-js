@@ -8,11 +8,6 @@
 /* eslint-disable */
 // @ts-nocheck
 
-// import re
-// from math import asin, cos, radians, sqrt
-
-// import h3
-// import h3.api.basic_int as h3_int
 import {h3ToGeo, geoToH3, h3ToGeoBoundary, h3Distance} from 'h3-js';
 
 import {

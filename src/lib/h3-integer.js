@@ -1,6 +1,3 @@
-// These tests were ported from python, so disable overly Python-unfriendly linter rules
-/* eslint-disable dot-notation, camelcase */
-
 const LO_PART = 0;
 const HI_PART = 1;
 const INT_SIZE = 32;
