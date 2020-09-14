@@ -1,4 +1,4 @@
-# Placekey
+# placekey-js
 
 A JavaScript library for working with Placekeys.
 
