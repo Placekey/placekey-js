@@ -49,5 +49,4 @@ getPlacekeyPrefix_distance_dict()
 
 The placekey-js JavaScript library is provided and maintained by Unfolded, Inc.
 
-![Unfolded](https://github.com/SafegraphInc/placekey-js/blob/master/docs/unfolded-logo.png?raw=true)
 ![Unfolded](docs/unfolded-logo.png?raw=true)
