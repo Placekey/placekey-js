@@ -47,6 +47,6 @@ getPlacekeyPrefix_distance_dict()
 
 ## Attribution
 
-The placekey-js JavaScript library is provided and maintained by Unfolded, Inc.
+The placekey-js JavaScript library is provided and maintained by [Unfolded, Inc](https://unfolded.ai).
 
-![Unfolded](docs/unfolded-logo.png?raw=true)
+[![Unfolded](docs/unfolded-logo.png?raw=true)](https://unfolded.ai)
