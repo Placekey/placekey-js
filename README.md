@@ -45,7 +45,9 @@ getPlacekeyPrefix_distance_dict()
  9: 63.47}
 ```
 
-## Attribution
+## License and Attribution
+
+Provided as open source under the Apache 2 license.
 
 The placekey-js JavaScript library is provided and maintained by [Unfolded, Inc](https://unfolded.ai).
 
