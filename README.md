@@ -32,18 +32,29 @@ h3ToPlacekey('8a754e64992ffff');
 
 An upper bound on the maximal distance in meters between two Placekeys based on the length of their shared prefix is provided by `getPlacekeyPrefixDistanceDict()`.
 
-```js
-getPlacekeyPrefix_distance_dict()
-{1: 12740000.0,
- 2: 2777000.0,
- 3: 1065000.0,
- 4: 152400.0,
- 5: 21770.0,
- 6: 8227.0,
- 7: 1176.0,
- 8: 444.3,
- 9: 63.47}
+```json
+{
+  1: 12740000.0,
+  2: 2777000.0,
+  3: 1065000.0,
+  4: 152400.0,
+  5: 21770.0,
+  6: 8227.0,
+  7: 1176.0,
+  8: 444.3,
+  9: 63.47
+}
 ```
+
+## Contributing
+
+To build and test:
+```sh
+yarn bootstrap # install and build
+yarn test # run tests
+```
+
+PRs should include tests and, if necessary, documentation updates. To make sure non-trivial PRs will be accepted, consider opening an issue first and describe the changes you want to make before completing the work.
 
 ## Attribution
 
