@@ -1,6 +1,6 @@
 # placekey-js
 
-> Note that this library is still in development. Decoding of placekeys should be working but `encode` is still a WIP.
+> Note that this library is still in development. Decoding of placekeys should be working but encoding via `geoToPlacekey()` etc is still a work in progress.
 
 A JavaScript library for working with Placekeys.
 
