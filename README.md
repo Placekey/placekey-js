@@ -1,5 +1,7 @@
 # placekey-js
 
+> Note that this library is still in development. Decoding of placekeys should be working but encoding via `geoToPlacekey()` etc is still a work in progress.
+
 A JavaScript library for working with Placekeys.
 
 ## Usage
@@ -56,7 +58,9 @@ yarn test # run tests
 
 PRs should include tests and, if necessary, documentation updates. To make sure non-trivial PRs will be accepted, consider opening an issue first and describe the changes you want to make before completing the work.
 
-## Attribution
+## License and Attribution
+
+Provided as open source under the Apache 2 license.
 
 The placekey-js JavaScript library is provided and maintained by [Unfolded, Inc](https://unfolded.ai).
 
