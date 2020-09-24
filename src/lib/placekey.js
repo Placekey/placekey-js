@@ -92,7 +92,7 @@ export function h3ToPlacekey(h3index) {
 
 // Given a placekey, return the cooridnates of the boundary of the hexagon.
 export function placekeyToHexBoundary(placekey, formatAsGeoJson) {
-  return h3ToGeoBoundary(placekey, formatAsGeoJson);
+  return h3ToGeoBoundary(placekeyToH3(placekey), formatAsGeoJson);
 }
 
 export function placekeyDistance(placekey1, placekey2) {
@@ -193,7 +193,7 @@ function cleanString(string) {
  * @returns {string}
  */
 function dirtyString(s) {
-  for (const [key, value] of Object.entries(REPLACEMENT_MAP)) {
+  for (const [key, value] of Object.entries(REPLACEMENT_MAP).reverse()) {
     // TODO: May misdecode due to JS replace/replaceAll
     s = s.replace(value, key);
   }
