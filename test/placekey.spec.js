@@ -9,7 +9,7 @@ import {
   placekeyToH3,
   h3ToPlacekey,
   // getPlacekeyPrefixDistanceDict,
-  // placekeyToHexBoundary,
+  placekeyToHexBoundary,
   placekeyIsValid,
   placekeyDistance,
   _cleanString,
@@ -18,6 +18,7 @@ import {
 
 import SAMPLES from './data/example_geos.json';
 import DISTANCE_SAMPLES from './data/example_distances.json';
+import {h3ToGeoBoundary} from 'h3-js';
 
 const ADDITIONAL_PLACEKEYS = [
   '223-222@5yv-j8g-y5f', // Chevron - Error
@@ -28,8 +29,7 @@ const ADDITIONAL_PLACEKEYS = [
 
 test('stringCleaning', t => {
   t.equal(_cleanString('vjngr'), 'vjugu', 'clean overlapping bad words out of sequence order');
-  // TODO - broken
-  // t.equal(_dirtyString('vjugu'), 'vjngr', 'dirty overlapping bad words out of sequence order');
+  t.equal(_dirtyString('vjugu'), 'vjngr', 'dirty overlapping bad words out of sequence order');
 
   t.equal(_cleanString('prngr'), 'pregr', 'clean overlapping bad words in sequence order');
   t.equal(_dirtyString('pregr'), 'prngr', 'dirty overlapping bad words in sequence order');
@@ -115,22 +115,19 @@ test.skip('geoToPlacekey', t => {
   t.end();
 });
 
-
 test.skip('placekeyToHexBoundary', t => {
-  /*
   const key = '@5vg-7gq-tvz';
-  const h3_integer = placekey_to_h3_int(key);
+  const h3Form = placekeyToH3(key);
   t.deepEqual(
-    placekeyToHexBoundary(key, (geo_json = True)),
-    h3_int.h3_to_geo_boundary(h3_integer, (geo_json = True)),
+    placekeyToHexBoundary(key, true),
+    h3ToGeoBoundary(h3Form, true),
     'placekey boundary equal to h3 boundary (geo_json=True)'
   );
   t.deepEqual(
-    placekeyToHexBoundary(key, (geo_json = False)),
-    h3_int.h3_to_geo_boundary(h3_integer, (geo_json = False)),
+    placekeyToHexBoundary(key, false),
+    h3ToGeoBoundary(h3Form, false),
     'placekey boundary equal to h3 boundary (geo_json=False)'
   );
-  */
   t.end();
 });
 
