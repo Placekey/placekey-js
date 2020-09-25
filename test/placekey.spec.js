@@ -91,7 +91,7 @@ test('placekeyToGeo', t => {
   t.end();
 });
 
-test.only('h3ToPlacekey', t => {
+test('h3ToPlacekey', t => {
   for (const row of SAMPLES) {
     t.equal(
       h3ToPlacekey(row.h3_r10),

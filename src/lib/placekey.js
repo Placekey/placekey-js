@@ -241,6 +241,7 @@ function encodeShortInt(x) {
   let int = h3IntegerToSafeInteger(x);
 
   let result = '';
+  console.log('Encoding: ', int.toString(16));
   while (int > 0) {
     const remainder = int % ALPHABET_LENGTH;
     result = ALPHABET[remainder] + result;
