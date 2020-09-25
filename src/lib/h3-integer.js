@@ -1,3 +1,10 @@
+/*
+This file contains functions for working with 64 bit integers, to work around
+JavaScript's lack of a 64 bit integer type.
+
+In the future this could be replaced with standard JavaScript features like BigInt.
+*/
+
 const LO_PART = 0;
 const HI_PART = 1;
 const INT_SIZE = 32;
@@ -166,8 +173,10 @@ export function stringToH3Integer(h3Index, result = [0, 0]) {
 }
 
 export function shortenH3Integer(h3Integer) {
+  const shiftedH3Integer = addH3Integers(h3Integer, BASE_CELL_SHIFT);
+
   // Cuts off the 12 left-most bits that don't code location
-  const masked = maskLeftBits(h3Integer, 12);
+  const masked = maskLeftBits(shiftedH3Integer, 12);
 
   // Cuts off the rightmost bits corresponding to resolutions
   // greater than the base resolution
@@ -182,4 +191,13 @@ export function unshortenH3Integer(shortH3Integer, result = [0, 0]) {
     unshiftedInt
   );
   return rebuiltInt;
+}
+
+export function h3IntegerToSafeInteger(h3Integer) {
+  // If x[HI_PART] is greater than 20 bits, we will exceed the safe integer range.
+  if (h3Integer[HI_PART] > 0xfffff) {
+    throw new Error('Cannot encode integers beyond 52 bits');
+  }
+  const shiftedHiPart = h3Integer[HI_PART] * Math.pow(2, 32);
+  return h3Integer[LO_PART] + shiftedHiPart;
 }

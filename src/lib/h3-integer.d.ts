@@ -58,7 +58,7 @@ export function h3IntegerToString(h3Integer: number[]): string;
  * @param h3Integer: two-component h3 integer
  * @return: shortened h3 integer
  */
-export function shortenH3Integer(h3Integer: number[]): number;
+export function shortenH3Integer(h3Integer: number[]): number[];
 
 /**
  * Expand a shortened single number h3 integer into a two component h3 integer
@@ -67,3 +67,11 @@ export function shortenH3Integer(h3Integer: number[]): number;
  * @returns a two-component array of numbers. Returns `result` if provided, otherwise a newly created array
  */
 export function unshortenH3Integer(shortH3Integer: number): number[];
+
+/**
+ * Converts from an H3 integer to a JavaScript number (which is also an integer)
+ *
+ * @param h3Integer h3 integer less than 2^53
+ * @returns The H3 integer as a JavaScript integer
+ */
+export function h3IntegerToSafeInteger(h3Integer: number[]): number;

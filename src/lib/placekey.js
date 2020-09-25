@@ -14,7 +14,8 @@ import {
   h3IntegerToString,
   stringToH3Integer,
   shortenH3Integer,
-  unshortenH3Integer
+  unshortenH3Integer,
+  h3IntegerToSafeInteger
 } from './h3-integer';
 import {addH3Integers} from './h3-integer';
 import {scaleH3Integer} from './h3-integer';
@@ -118,23 +119,25 @@ export function getPlacekeyPrefixDistanceDict() {
 
 /**
  * Convert an h3 integer into a Placekey
- * @param h3_integer: h3 index (int)
+ * @param h3Integer: h3 index (int)
  * @return: Placekey (string)
  */
-function h3IntegerToPlacekey(h3_integer) {
-  const shortH3Integer = shortenH3Integer(h3_integer);
+function h3IntegerToPlacekey(h3Integer) {
+  const shortH3Integer = shortenH3Integer(h3Integer);
   const encodedShortH3 = encodeShortInt(shortH3Integer);
 
   let cleanEncodedShortH3 = cleanString(encodedShortH3);
   if (cleanEncodedShortH3.length <= CODE_LENGTH) {
-    cleanEncodedShortH3 = str.rjust(cleanEncodedShortH3, CODE_LENGTH, PADDING_CHAR);
+    cleanEncodedShortH3 = cleanEncodedShortH3.padStart(CODE_LENGTH, PADDING_CHAR);
   }
 
-  return '@' + cleanEncodedShortH3.join('-');
-  /* TODO port this python code
-  return '@' + '-'.join(cleanEncodedShortH3[i:i + TUPLE_LENGTH]
-                        for i in range(0, len(cleanEncodedShortH3), TUPLE_LENGTH))
-  */
+  const cleanChars = cleanEncodedShortH3.split('');
+  const tuples = [
+    cleanChars.splice(0, TUPLE_LENGTH).join(''),
+    cleanChars.splice(0, TUPLE_LENGTH).join(''),
+    cleanChars.join('')
+  ];
+  return '@' + tuples.join('-');
 }
 
 /**
@@ -235,12 +238,13 @@ function encodeShortInt(x) {
     return ALPHABET[0];
   }
 
+  let int = h3IntegerToSafeInteger(x);
+
   let result = '';
-  // TODO: Won't work!
-  while (x > 0) {
-    const remainder = x % ALPHABET_LENGTH;
+  while (int > 0) {
+    const remainder = int % ALPHABET_LENGTH;
     result = ALPHABET[remainder] + result;
-    x = x / ALPHABET_LENGTH;
+    int = Math.floor(int / ALPHABET_LENGTH);
   }
   return result;
 }

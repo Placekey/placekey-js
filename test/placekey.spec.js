@@ -91,8 +91,7 @@ test('placekeyToGeo', t => {
   t.end();
 });
 
-// TODO - Encoding still not working
-test.skip('h3ToPlacekey', t => {
+test.only('h3ToPlacekey', t => {
   for (const row of SAMPLES) {
     t.equal(
       h3ToPlacekey(row.h3_r10),
@@ -103,6 +102,7 @@ test.skip('h3ToPlacekey', t => {
   t.end();
 });
 
+// TODO
 test.skip('geoToPlacekey', t => {
   for (const row of SAMPLES) {
     const placekey = geoToPlacekey(row.lat, row.long);
@@ -115,6 +115,7 @@ test.skip('geoToPlacekey', t => {
   t.end();
 });
 
+// TODO
 test.skip('placekeyToHexBoundary', t => {
   const key = '@5vg-7gq-tvz';
   const h3Form = placekeyToH3(key);
@@ -131,6 +132,7 @@ test.skip('placekeyToHexBoundary', t => {
   t.end();
 });
 
+// TODO
 test.skip('placekeyDistance', t => {
   t.equal(
     placekeyDistance(geoToPlacekey(0.0, 0.0), geoToPlacekey(0.0, 0.0)),
