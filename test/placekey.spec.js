@@ -91,8 +91,7 @@ test('placekeyToGeo', t => {
   t.end();
 });
 
-// TODO - Encoding still not working
-test.skip('h3ToPlacekey', t => {
+test('h3ToPlacekey', t => {
   for (const row of SAMPLES) {
     t.equal(
       h3ToPlacekey(row.h3_r10),
@@ -103,7 +102,7 @@ test.skip('h3ToPlacekey', t => {
   t.end();
 });
 
-test.skip('geoToPlacekey', t => {
+test('geoToPlacekey', t => {
   for (const row of SAMPLES) {
     const placekey = geoToPlacekey(row.lat, row.long);
     t.equal(
@@ -115,7 +114,7 @@ test.skip('geoToPlacekey', t => {
   t.end();
 });
 
-test.skip('placekeyToHexBoundary', t => {
+test('placekeyToHexBoundary', t => {
   const key = '@5vg-7gq-tvz';
   const h3Form = placekeyToH3(key);
   t.deepEqual(
@@ -131,7 +130,7 @@ test.skip('placekeyToHexBoundary', t => {
   t.end();
 });
 
-test.skip('placekeyDistance', t => {
+test('placekeyDistance', t => {
   t.equal(
     placekeyDistance(geoToPlacekey(0.0, 0.0), geoToPlacekey(0.0, 0.0)),
     0.0,
@@ -139,10 +138,13 @@ test.skip('placekeyDistance', t => {
   );
 
   for (const sample of DISTANCE_SAMPLES) {
-    const difference = Math.abs(
-      placekeyDistance(sample.placekey_1, sample.placekey_2) - sample.distance
+    assertAlmostEqual(
+      t,
+      placekeyDistance(sample.placekey_1, sample.placekey_2),
+      sample.distance,
+      0.1,
+      `distances too far apart ${sample.placekey_1}, ${sample.placekey_2}`
     );
-    t.assertLessEqual(difference, 0.1, 'distances too far apart');
   }
 
   t.end();

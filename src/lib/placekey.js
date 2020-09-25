@@ -8,13 +8,14 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import {h3ToGeo, geoToH3, h3ToGeoBoundary, h3Distance} from 'h3-js';
+import {h3ToGeo, geoToH3, h3ToGeoBoundary, h3Distance, degsToRads} from 'h3-js';
 
 import {
   h3IntegerToString,
   stringToH3Integer,
   shortenH3Integer,
-  unshortenH3Integer
+  unshortenH3Integer,
+  h3IntegerToJSInteger
 } from './h3-integer';
 import {addH3Integers} from './h3-integer';
 import {scaleH3Integer} from './h3-integer';
@@ -71,7 +72,7 @@ export function placekeyIsValid(placekey) {
 
 // Convert latitude and longitude into a Placekey
 export function geoToPlacekey(lat, long) {
-  const hexId = geoToH3(lat, long, (resolution = RESOLUTION));
+  const hexId = geoToH3(lat, long, RESOLUTION);
   return h3ToPlacekey(hexId);
 }
 
@@ -96,7 +97,10 @@ export function placekeyToHexBoundary(placekey, formatAsGeoJson) {
 }
 
 export function placekeyDistance(placekey1, placekey2) {
-  return h3Distance(placekeyToH3(placekey1), placekeyToH3(placekey2));
+  const geo1 = placekeyToGeo(placekey1);
+  const geo2 = placekeyToGeo(placekey2);
+
+  return geoDistance(geo1, geo2);
 }
 
 // Return a mapping of the length of a shared Placekey prefix to max distance in meters between two Placekeys
@@ -118,23 +122,25 @@ export function getPlacekeyPrefixDistanceDict() {
 
 /**
  * Convert an h3 integer into a Placekey
- * @param h3_integer: h3 index (int)
+ * @param h3Integer: h3 index (int)
  * @return: Placekey (string)
  */
-function h3IntegerToPlacekey(h3_integer) {
-  const shortH3Integer = shortenH3Integer(h3_integer);
+function h3IntegerToPlacekey(h3Integer) {
+  const shortH3Integer = shortenH3Integer(h3Integer);
   const encodedShortH3 = encodeShortInt(shortH3Integer);
 
   let cleanEncodedShortH3 = cleanString(encodedShortH3);
   if (cleanEncodedShortH3.length <= CODE_LENGTH) {
-    cleanEncodedShortH3 = str.rjust(cleanEncodedShortH3, CODE_LENGTH, PADDING_CHAR);
+    cleanEncodedShortH3 = cleanEncodedShortH3.padStart(CODE_LENGTH, PADDING_CHAR);
   }
 
-  return '@' + cleanEncodedShortH3.join('-');
-  /* TODO port this python code
-  return '@' + '-'.join(cleanEncodedShortH3[i:i + TUPLE_LENGTH]
-                        for i in range(0, len(cleanEncodedShortH3), TUPLE_LENGTH))
-  */
+  const cleanChars = cleanEncodedShortH3.split('');
+  const tuples = [
+    cleanChars.splice(0, TUPLE_LENGTH).join(''),
+    cleanChars.splice(0, TUPLE_LENGTH).join(''),
+    cleanChars.join('')
+  ];
+  return '@' + tuples.join('-');
 }
 
 /**
@@ -235,14 +241,29 @@ function encodeShortInt(x) {
     return ALPHABET[0];
   }
 
+  let int = h3IntegerToJSInteger(x);
+
   let result = '';
-  // TODO: Won't work!
-  while (x > 0) {
-    const remainder = x % ALPHABET_LENGTH;
+  while (int > 0) {
+    const remainder = int % ALPHABET_LENGTH;
     result = ALPHABET[remainder] + result;
-    x = x / ALPHABET_LENGTH;
+    int = Math.floor(int / ALPHABET_LENGTH);
   }
   return result;
+}
+
+function geoDistance(geo1, geo2) {
+  const EARTH_RADIUS = 6371; // In km
+
+  const lat1 = degsToRads(geo1[0]);
+  const long1 = degsToRads(geo1[1]);
+  const lat2 = degsToRads(geo2[0]);
+  const long2 = degsToRads(geo2[1]);
+
+  const havLat = 0.5 * (1 - Math.cos(lat1 - lat2));
+  const havLong = 0.5 * (1 - Math.cos(long1 - long2));
+  const radical = Math.sqrt(havLat + Math.cos(lat1) * Math.cos(lat2) * havLong);
+  return 2 * EARTH_RADIUS * Math.asin(radical);
 }
 
 // TEST EXPORTS

@@ -21,7 +21,8 @@ export {
   maskLeftBits as _maskLeftBits,
   addH3Integers as _addH3Integers,
   subtractH3Integers as _subtractH3Integers,
-  scaleH3Integer as _scaleH3Integer
+  scaleH3Integer as _scaleH3Integer,
+  h3IntegerToJSInteger as _h3IntegerToJSInteger
 } from './lib/h3-integer';
 
 // TEST EXPORTS

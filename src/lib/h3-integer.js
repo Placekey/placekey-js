@@ -1,3 +1,10 @@
+/*
+This file contains functions for working with 64 bit integers, to work around
+JavaScript's lack of a 64 bit integer type.
+
+In the future this could be replaced with standard JavaScript features like BigInt.
+*/
+
 const LO_PART = 0;
 const HI_PART = 1;
 const INT_SIZE = 32;
@@ -89,12 +96,15 @@ export function addH3Integers(left, right, result = [0, 0]) {
 }
 
 export function subtractH3Integers(left, right, result = [0, 0]) {
-  // TODO: Not implemented for when one part becomes negative
-  assert(left[LO_PART] >= right[LO_PART]);
+  // TODO: Not implemented for when right is larger than left
   assert(left[HI_PART] >= right[HI_PART]);
+  if (left[HI_PART] === right[HI_PART]) {
+    assert(left[LO_PART] >= right[LO_PART]);
+  }
 
   result[LO_PART] = left[LO_PART] - right[LO_PART];
-  result[HI_PART] = left[HI_PART] - right[HI_PART];
+  const borrow = left[LO_PART] < right[LO_PART] ? 1 : 0;
+  result[HI_PART] = left[HI_PART] - right[HI_PART] - borrow;
   return result;
 }
 
@@ -105,6 +115,17 @@ export function scaleH3Integer(scalar, value, result = [0, 0]) {
     result = addH3Integers(value, result);
   }
   return result;
+}
+
+export function h3IntegerToJSInteger(h3Integer) {
+  // If x[HI_PART] is greater than 20 bits, we will exceed the safe integer range.
+  if (h3Integer[HI_PART] > 0xfffff || h3Integer[HI_PART] < 0) {
+    throw new Error('Cannot encode integers beyond 52 bits');
+  }
+  const shiftedHiPart = h3Integer[HI_PART] * Math.pow(2, 32);
+  const maskedLoPart = h3Integer[LO_PART] & 0x7fffffff;
+  const msbLoPart = h3Integer[LO_PART] & 0x80000000 ? 0x80000000 : 0;
+  return maskedLoPart + msbLoPart + shiftedHiPart;
 }
 
 // From https://github.com/uber-web/probe.gl/blob/master/modules/core/src/utils/formatters.js#L16
@@ -163,8 +184,10 @@ export function stringToH3Integer(h3Index, result = [0, 0]) {
 }
 
 export function shortenH3Integer(h3Integer) {
+  const shiftedH3Integer = addH3Integers(h3Integer, BASE_CELL_SHIFT);
+
   // Cuts off the 12 left-most bits that don't code location
-  const masked = maskLeftBits(h3Integer, 12);
+  const masked = maskLeftBits(shiftedH3Integer, 12);
 
   // Cuts off the rightmost bits corresponding to resolutions
   // greater than the base resolution
