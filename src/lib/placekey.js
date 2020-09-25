@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import {h3ToGeo, geoToH3, h3ToGeoBoundary, h3Distance} from 'h3-js';
+import {h3ToGeo, geoToH3, h3ToGeoBoundary, h3Distance, degsToRads} from 'h3-js';
 
 import {
   h3IntegerToString,
@@ -72,7 +72,7 @@ export function placekeyIsValid(placekey) {
 
 // Convert latitude and longitude into a Placekey
 export function geoToPlacekey(lat, long) {
-  const hexId = geoToH3(lat, long, (resolution = RESOLUTION));
+  const hexId = geoToH3(lat, long, RESOLUTION);
   return h3ToPlacekey(hexId);
 }
 
@@ -97,7 +97,10 @@ export function placekeyToHexBoundary(placekey, formatAsGeoJson) {
 }
 
 export function placekeyDistance(placekey1, placekey2) {
-  return h3Distance(placekeyToH3(placekey1), placekeyToH3(placekey2));
+  const geo1 = placekeyToGeo(placekey1);
+  const geo2 = placekeyToGeo(placekey2);
+
+  return geoDistance(geo1, geo2);
 }
 
 // Return a mapping of the length of a shared Placekey prefix to max distance in meters between two Placekeys
@@ -241,13 +244,26 @@ function encodeShortInt(x) {
   let int = h3IntegerToSafeInteger(x);
 
   let result = '';
-  console.log('Encoding: ', int.toString(16));
   while (int > 0) {
     const remainder = int % ALPHABET_LENGTH;
     result = ALPHABET[remainder] + result;
     int = Math.floor(int / ALPHABET_LENGTH);
   }
   return result;
+}
+
+function geoDistance(geo1, geo2) {
+  const EARTH_RADIUS = 6371; // In km
+
+  const lat1 = degsToRads(geo1[0]);
+  const long1 = degsToRads(geo1[1]);
+  const lat2 = degsToRads(geo2[0]);
+  const long2 = degsToRads(geo2[1]);
+
+  const havLat = 0.5 * (1 - Math.cos(lat1 - lat2));
+  const havLong = 0.5 * (1 - Math.cos(long1 - long2));
+  const radical = Math.sqrt(havLat + Math.cos(lat1) * Math.cos(lat2) * havLong);
+  return 2 * EARTH_RADIUS * Math.asin(radical);
 }
 
 // TEST EXPORTS
