@@ -12,7 +12,7 @@ import {
   _addH3Integers,
   _subtractH3Integers,
   _scaleH3Integer,
-  _h3IntegerToSafeInteger
+  _h3IntegerToJSInteger
 } from 'placekey-js';
 
 test('exports', t => {
@@ -25,7 +25,7 @@ test('exports', t => {
   t.ok(_addH3Integers);
   t.ok(_subtractH3Integers);
   t.ok(_scaleH3Integer);
-  t.ok(_h3IntegerToSafeInteger);
+  t.ok(_h3IntegerToJSInteger);
   t.end();
 });
 
@@ -220,11 +220,11 @@ test('_scaleH3Integer', t => {
   t.end();
 });
 
-test('_h3IntegerToSafeInteger', t => {
-  t.equal(_h3IntegerToSafeInteger(_stringToH3Integer('0')), 0);
-  t.equal(_h3IntegerToSafeInteger(_stringToH3Integer('1')), 1);
-  t.equal(_h3IntegerToSafeInteger(_stringToH3Integer('100000000')), 0x100000000);
-  t.equal(_h3IntegerToSafeInteger(_stringToH3Integer('2100000020')), 0x2100000020);
-  t.throws(() => _h3IntegerToSafeInteger(_stringToH3Integer('ffffffffffffffff')));
+test('_h3IntegerToJSInteger', t => {
+  t.equal(_h3IntegerToJSInteger(_stringToH3Integer('0')), 0);
+  t.equal(_h3IntegerToJSInteger(_stringToH3Integer('1')), 1);
+  t.equal(_h3IntegerToJSInteger(_stringToH3Integer('100000000')), 0x100000000);
+  t.equal(_h3IntegerToJSInteger(_stringToH3Integer('2100000020')), 0x2100000020);
+  t.throws(() => _h3IntegerToJSInteger(_stringToH3Integer('ffffffffffffffff')));
   t.end();
 });

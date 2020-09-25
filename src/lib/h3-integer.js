@@ -117,6 +117,17 @@ export function scaleH3Integer(scalar, value, result = [0, 0]) {
   return result;
 }
 
+export function h3IntegerToJSInteger(h3Integer) {
+  // If x[HI_PART] is greater than 20 bits, we will exceed the safe integer range.
+  if (h3Integer[HI_PART] > 0xfffff || h3Integer[HI_PART] < 0) {
+    throw new Error('Cannot encode integers beyond 52 bits');
+  }
+  const shiftedHiPart = h3Integer[HI_PART] * Math.pow(2, 32);
+  const maskedLoPart = h3Integer[LO_PART] & 0x7fffffff;
+  const msbLoPart = h3Integer[LO_PART] & 0x80000000 ? 0x80000000 : 0;
+  return maskedLoPart + msbLoPart + shiftedHiPart;
+}
+
 // From https://github.com/uber-web/probe.gl/blob/master/modules/core/src/utils/formatters.js#L16
 export function leftPad(string, length = 8, char = ' ') {
   const padLength = Math.max(length - string.length, 0);
@@ -191,15 +202,4 @@ export function unshortenH3Integer(shortH3Integer, result = [0, 0]) {
     unshiftedInt
   );
   return rebuiltInt;
-}
-
-export function h3IntegerToSafeInteger(h3Integer) {
-  // If x[HI_PART] is greater than 20 bits, we will exceed the safe integer range.
-  if (h3Integer[HI_PART] > 0xfffff || h3Integer[HI_PART] < 0) {
-    throw new Error('Cannot encode integers beyond 52 bits');
-  }
-  const shiftedHiPart = h3Integer[HI_PART] * Math.pow(2, 32);
-  const maskedLoPart = h3Integer[LO_PART] & 0x7fffffff;
-  const msbLoPart = h3Integer[LO_PART] & 0x80000000 ? 0x80000000 : 0;
-  return maskedLoPart + msbLoPart + shiftedHiPart;
 }

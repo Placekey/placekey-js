@@ -74,4 +74,4 @@ export function unshortenH3Integer(shortH3Integer: number): number[];
  * @param h3Integer h3 integer less than 2^53
  * @returns The H3 integer as a JavaScript integer
  */
-export function h3IntegerToSafeInteger(h3Integer: number[]): number;
+export function h3IntegerToJSInteger(h3Integer: number[]): number;

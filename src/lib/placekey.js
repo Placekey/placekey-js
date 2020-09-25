@@ -15,7 +15,7 @@ import {
   stringToH3Integer,
   shortenH3Integer,
   unshortenH3Integer,
-  h3IntegerToSafeInteger
+  h3IntegerToJSInteger
 } from './h3-integer';
 import {addH3Integers} from './h3-integer';
 import {scaleH3Integer} from './h3-integer';
@@ -241,7 +241,7 @@ function encodeShortInt(x) {
     return ALPHABET[0];
   }
 
-  let int = h3IntegerToSafeInteger(x);
+  let int = h3IntegerToJSInteger(x);
 
   let result = '';
   while (int > 0) {

@@ -22,7 +22,7 @@ export {
   addH3Integers as _addH3Integers,
   subtractH3Integers as _subtractH3Integers,
   scaleH3Integer as _scaleH3Integer,
-  h3IntegerToSafeInteger as _h3IntegerToSafeInteger
+  h3IntegerToJSInteger as _h3IntegerToJSInteger
 } from './lib/h3-integer';
 
 // TEST EXPORTS
