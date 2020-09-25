@@ -183,6 +183,30 @@ test('_subtractH3Integers', t => {
     ),
     '80000000'
   );
+  t.equal(
+    _h3IntegerToString(
+      _subtractH3Integers(_stringToH3Integer('100000000'), _stringToH3Integer('1'))
+    ),
+    'ffffffff'
+  );
+  t.equal(
+    _h3IntegerToString(
+      _subtractH3Integers(_stringToH3Integer('1000000f0'), _stringToH3Integer('f1'))
+    ),
+    'ffffffff'
+  );
+  t.equal(
+    _h3IntegerToString(
+      _subtractH3Integers(_stringToH3Integer('1000000f0'), _stringToH3Integer('f2'))
+    ),
+    'fffffffe'
+  );
+  t.equal(
+    _h3IntegerToString(
+      _subtractH3Integers(_stringToH3Integer('2000000f0'), _stringToH3Integer('f2'))
+    ),
+    '1fffffffe'
+  );
   t.end();
 });
 

@@ -89,12 +89,15 @@ export function addH3Integers(left, right, result = [0, 0]) {
 }
 
 export function subtractH3Integers(left, right, result = [0, 0]) {
-  // TODO: Not implemented for when one part becomes negative
-  assert(left[LO_PART] >= right[LO_PART]);
+  // TODO: Not implemented for when right is larger than left
   assert(left[HI_PART] >= right[HI_PART]);
+  if (left[HI_PART] === right[HI_PART]) {
+    assert(left[LO_PART] >= right[LO_PART]);
+  }
 
   result[LO_PART] = left[LO_PART] - right[LO_PART];
-  result[HI_PART] = left[HI_PART] - right[HI_PART];
+  const borrow = left[LO_PART] < right[LO_PART] ? 1 : 0;
+  result[HI_PART] = left[HI_PART] - right[HI_PART] - borrow;
   return result;
 }
 
