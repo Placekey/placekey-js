@@ -36,6 +36,12 @@ test('stringCleaning', t => {
   t.end();
 });
 
+test('stringCleaningReplace', t => {
+  t.equal(_cleanString('prnprn'), 'prepre', 'clean bad words duplicated');
+  t.equal(_dirtyString('prepre'), 'prnprn', 'dirty bad words duplicated');
+  t.end();
+});
+
 test('placekeyIsValid', t => {
   t.ok(placekeyIsValid('abc-234-xyz'), 'where with no @');
   t.ok(placekeyIsValid('@abc-234-xyz'), 'where with @');
