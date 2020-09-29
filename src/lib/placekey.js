@@ -8,7 +8,7 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import {h3ToGeo, geoToH3, h3ToGeoBoundary, h3Distance, degsToRads} from 'h3-js';
+import {h3ToGeo, geoToH3, h3ToGeoBoundary, degsToRads} from 'h3-js';
 
 import {
   h3IntegerToString,
@@ -180,6 +180,17 @@ function stripEncoding(string) {
     .replace(PADDING_REGEX, '');
 }
 
+function replaceAll(haystack, needle, replacement) {
+  // This is a workaround for String.prototypel.replaceAll
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/replaceAll
+
+  while (haystack.indexOf(needle) !== -1) {
+    haystack = haystack.replace(needle, replacement);
+  }
+
+  return haystack;
+}
+
 /**
  * Sanitize a placekey alphabet encoded string, removing potentially offensive letters
  * @param {string} string
@@ -187,8 +198,7 @@ function stripEncoding(string) {
  */
 function cleanString(string) {
   for (const [key, value] of Object.entries(REPLACEMENT_MAP)) {
-    // TODO: May misencode due to JS replace/replaceAll
-    string = string.replace(key, value);
+    string = replaceAll(string, key, value);
   }
   return string;
 }
@@ -200,8 +210,7 @@ function cleanString(string) {
  */
 function dirtyString(s) {
   for (const [key, value] of Object.entries(REPLACEMENT_MAP).reverse()) {
-    // TODO: May misdecode due to JS replace/replaceAll
-    s = s.replace(value, key);
+    s = replaceAll(s, value, key);
   }
   return s;
 }
