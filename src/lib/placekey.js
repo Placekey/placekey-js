@@ -21,7 +21,6 @@ import {addH3Integers} from './h3-integer';
 import {scaleH3Integer} from './h3-integer';
 
 const RESOLUTION = 10;
-const BASE_RESOLUTION = 12;
 const ALPHABET = '23456789bcdfghjkmnpqrstvwxyz';
 const ALPHABET_LENGTH = ALPHABET.length;
 const CODE_LENGTH = 9;
