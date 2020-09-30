@@ -39,6 +39,15 @@ export function subtractH3Integers(left: number[], right: number[], result?: num
 export function scaleH3Integer(scalar: number, value: number[], result?: number[]);
 
 /**
+ * Converts from an H3 integer to a JavaScript number (which is also a
+ * "safe" integer as determined by Number.isSafeInteger.)
+ *
+ * @param h3Integer h3 integer less than 2^53
+ * @returns The H3 integer as a JavaScript integer
+ */
+export function h3IntegerToJSInteger(h3Integer: number[]): number;
+
+/**
  * Convert a standard H3 index to a two-component array of 32 bit integers
  * @param h3index A standard H3 hexadecimal string index
  * @param result Optional two-component array to store result into
@@ -67,11 +76,3 @@ export function shortenH3Integer(h3Integer: number[]): number[];
  * @returns a two-component array of numbers. Returns `result` if provided, otherwise a newly created array
  */
 export function unshortenH3Integer(shortH3Integer: number): number[];
-
-/**
- * Converts from an H3 integer to a JavaScript number (which is also an integer)
- *
- * @param h3Integer h3 integer less than 2^53
- * @returns The H3 integer as a JavaScript integer
- */
-export function h3IntegerToJSInteger(h3Integer: number[]): number;
