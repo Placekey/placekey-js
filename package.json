@@ -2,7 +2,7 @@
   "name": "@placekey/placekey",
   "description": "JavaScript library for working with Placekeys.",
   "version": "1.0.0",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "author": "Unfolded, Inc.",
   "repository": {
     "type": "git",
