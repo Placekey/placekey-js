@@ -1,5 +1,7 @@
 # @placekey/placekey
 
+[![npm version](https://badge.fury.io/js/%40placekey%2Fplacekey.svg)](https://badge.fury.io/js/%40placekey%2Fplacekey)
+
 A JavaScript library for working with Placekeys.
 
 To install:
