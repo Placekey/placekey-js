@@ -11,8 +11,8 @@
     "noEmit": true,
     "baseUrl": ".",
     "paths": {
-      "placekey-js": ["src"],
-      "placekey-js/test": ["test"],
+      "@placekey/placekey": ["src"],
+      "@placekey/placekey/test": ["test"],
       "test": ["test"]
     }
   },

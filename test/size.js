@@ -1,1 +1,1 @@
-module.exports = require('placekey-js');
+module.exports = require('@placekey/placekey');

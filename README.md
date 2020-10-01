@@ -1,6 +1,18 @@
-# placekey-js
+# @placekey/placekey
 
 A JavaScript library for working with Placekeys.
+
+To install:
+
+```
+npm install @placekey/placekey
+```
+
+Or with yarn:
+
+```
+yarn add @placekey/placekey
+```
 
 ## Usage
 
@@ -9,23 +21,23 @@ Note: Be careful to note that like the [H3](https://h3geo.org/) API, the placeke
 Failure to account of this order when interoperating with other geospatial software is a common source of errors, for more information see [lon lat lon lat](https://macwright.com/lonlat/).
 
 ```js
-import {geoToPlacekey} from 'placekey';
+import {geoToPlacekey} from '@placekey/placekey';
 const [lat, long] = [0.0, 0.0];
 geoToPlacekey(lat, long); // => '@dvt-smp-tvz';
 ```
 
 ```js
-import {placekeyToGeo} from 'placekey';
+import {placekeyToGeo} from '@placekey/placekey';
 placekeyToGeo('@qjk-m7r-whq'); // => [-46.0033934397115, -155.09988163615031]
 ```
 
 ```js
-import {placekeyToH3} from 'placekey';
+import {placekeyToH3} from '@placekey/placekey';
 placekeyToH3('@dpr-6q6-73q'); // => '8a734e64992ffff'
 ```
 
 ```js
-import {h3ToPlacekey} from 'placekey';
+import {h3ToPlacekey} from '@placekey/placekey';
 h3ToPlacekey('8a734e64992ffff');
 ('@dpr-6q6-73q');
 ```

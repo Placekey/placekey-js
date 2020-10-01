@@ -1,13 +1,12 @@
 {
-  "name": "placekey-js",
+  "name": "@placekey/placekey",
   "description": "JavaScript library for working with Placekeys.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "license": "Apache 2.0",
-  "private": true,
   "author": "Unfolded, Inc.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/SafeGraphInc/placekey-py.git"
+    "url": "https://github.com/placekey/placekey-js.git"
   },
   "types": "src/index.d.ts",
   "main": "dist/es5/index.js",

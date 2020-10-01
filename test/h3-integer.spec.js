@@ -13,7 +13,7 @@ import {
   _subtractH3Integers,
   _scaleH3Integer,
   _h3IntegerToJSInteger
-} from 'placekey-js';
+} from '@placekey/placekey';
 
 test('exports', t => {
   t.ok(_shortenH3Integer);
