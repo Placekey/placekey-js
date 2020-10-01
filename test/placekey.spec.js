@@ -14,7 +14,7 @@ import {
   placekeyDistance,
   _cleanString,
   _dirtyString
-} from 'placekey-js';
+} from '@placekey/placekey';
 
 import SAMPLES from './data/example_geos.json';
 import DISTANCE_SAMPLES from './data/example_distances.json';
