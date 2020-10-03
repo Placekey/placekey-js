@@ -2,7 +2,9 @@
 
 [![npm version](https://badge.fury.io/js/%40placekey%2Fplacekey.svg)](https://badge.fury.io/js/%40placekey%2Fplacekey)
 
-A JavaScript library for working with Placekeys.
+A JavaScript library for working with [Placekeys](https://placekey.io).
+
+Documentation for this package can be found [here](https://placekey.github.io/placekey-js/), and documentation for the Placekey service API can be found [here](https://docs.placekey.io/). The Plackey design specification is available [here](https://docs.placekey.io/Placekey_Technical_White_Paper.pdf). The details in Placekey encoding is [here](https://docs.placekey.io/Placekey_Encoding_Specification%20White_Paper.pdf). We welcome your feedback. 
 
 To install:
 
