@@ -4,7 +4,7 @@
 
 A JavaScript library for working with [Placekeys](https://placekey.io).
 
-The source code for this library can be found [here](https://github.com/placekey/placekey-js/), and documentation for the Placekey service API can be found [here](https://docs.placekey.io/). The Plackey design specification is available [here](https://docs.placekey.io/Placekey_Technical_White_Paper.pdf). The details in Placekey encoding is [here](https://docs.placekey.io/Placekey_Encoding_Specification%20White_Paper.pdf). We welcome your feedback. 
+The source code for this library can be found [here](https://github.com/placekey/placekey-js/), and documentation for the Placekey service API can be found [here](https://docs.placekey.io/). The Plackey design specification is available [here](https://docs.placekey.io/Placekey_Technical_White_Paper.pdf). The details in Placekey encoding is [here](https://docs.placekey.io/Placekey_Encoding_Specification%20White_Paper.pdf). We welcome your feedback.
 
 To install:
 
@@ -69,6 +69,12 @@ To build and test:
 ```sh
 yarn bootstrap # install and build
 yarn test # run tests
+```
+
+To run benchmarks:
+
+```sh
+yarn bench
 ```
 
 PRs should include tests and, if necessary, documentation updates. To make sure non-trivial PRs will be accepted, consider opening an issue first and describe the changes you want to make before completing the work.

@@ -95,7 +95,7 @@ export function geoToPlacekey(lat, long) {
 
 // Convert a Placekey into a (latitude, longitude) tuple
 export function placekeyToGeo(placekey) {
-  return h3ToGeo(placekeyToH3(placekey));
+  return h3ToGeo(placekeyToH3Integer(placekey));
 }
 
 // Convert a Placekey string into an h3 string
@@ -110,7 +110,7 @@ export function h3ToPlacekey(h3index) {
 
 // Given a placekey, return the cooridnates of the boundary of the hexagon.
 export function placekeyToHexBoundary(placekey, formatAsGeoJson) {
-  return h3ToGeoBoundary(placekeyToH3(placekey), formatAsGeoJson);
+  return h3ToGeoBoundary(placekeyToH3Integer(placekey), formatAsGeoJson);
 }
 
 export function placekeyDistance(placekey1, placekey2) {

@@ -26,16 +26,18 @@
     "cover": "npm run cover:node && npm run cover:browser && nyc report --reporter=lcov",
     "publish-prod": "ocular-publish prod",
     "publish-beta": "ocular-publish beta",
-    "test": "ocular-test"
+    "test": "ocular-test",
+    "bench": "ocular-test bench"
   },
   "pre-commit": [
     "test"
   ],
   "dependencies": {
     "@babel/runtime": "^7.0.0",
-    "h3-js": "^3.6.3"
+    "h3-js": "^3.7.0"
   },
   "devDependencies": {
+    "@probe.gl/bench": "^3.3.0",
     "coveralls": "^3.0.0",
     "eslint-config-uber-jsx": "^3.0.0",
     "eslint-plugin-react": "~7.11.1",
