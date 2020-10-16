@@ -1,5 +1,3 @@
-const {resolve} = require('path');
-
 const config = {
   lint: {
     paths: ['src', 'test', 'docs'],
@@ -10,7 +8,8 @@ const config = {
 
   entry: {
     test: 'test/node.js',
-    size: 'test/size.js'
+    size: 'test/size.js',
+    bench: 'test/bench/index.js'
   }
 };
 
