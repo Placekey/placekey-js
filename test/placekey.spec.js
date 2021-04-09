@@ -48,6 +48,9 @@ test('placekeyIsValid', t => {
   t.ok(placekeyIsValid('bcd-2u4-xez'), 'where with no replacement characters');
   t.ok(placekeyIsValid('zzz@abc-234-xyz'), 'single tuple what with where');
   t.ok(placekeyIsValid('222-zzz@abc-234-xyz'), 'double tuple what with where');
+  t.ok(placekeyIsValid('2222-zzz@5vg-7gq-tvz'), 'long address encoding with where');
+  t.ok(placekeyIsValid('222-zzzz@5vg-7gq-tvz'), 'long poi encoding with where');
+  t.ok(placekeyIsValid('22222222-zzzzzzzzz@5vg-7gq-tvz'), 'long address and poi encoding with where');
 
   t.notOk(placekeyIsValid('@abc'), 'short where part');
   t.notOk(placekeyIsValid('abc-xyz'), 'short where part');
@@ -55,7 +58,8 @@ test('placekeyIsValid', t => {
   t.notOk(placekeyIsValid('abc-345@abc-234-xyz'), 'padding character in what');
   t.notOk(placekeyIsValid('ebc-345@abc-234-xyz'), 'replacement character in what');
   t.notOk(placekeyIsValid('bcd-345@'), 'missing what part');
-  t.notOk(placekeyIsValid('22-zzz@abc-234-xyz'), 'short what part');
+  t.notOk(placekeyIsValid('22-zzz@abc-234-xyz'), 'short address encoding');
+  t.notOk(placekeyIsValid('222-zz@abc-234-xyz'), 'short poi encoding');
   t.end();
 });
 
