@@ -50,7 +50,10 @@ test('placekeyIsValid', t => {
   t.ok(placekeyIsValid('222-zzz@abc-234-xyz'), 'double tuple what with where');
   t.ok(placekeyIsValid('2222-zzz@5vg-7gq-tvz'), 'long address encoding with where');
   t.ok(placekeyIsValid('222-zzzz@5vg-7gq-tvz'), 'long poi encoding with where');
-  t.ok(placekeyIsValid('22222222-zzzzzzzzz@5vg-7gq-tvz'), 'long address and poi encoding with where');
+  t.ok(
+    placekeyIsValid('22222222-zzzzzzzzz@5vg-7gq-tvz'),
+    'long address and poi encoding with where'
+  );
 
   t.notOk(placekeyIsValid('@abc'), 'short where part');
   t.notOk(placekeyIsValid('abc-xyz'), 'short where part');
