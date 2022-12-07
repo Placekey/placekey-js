@@ -41,7 +41,7 @@
     "coveralls": "^3.0.0",
     "eslint-config-uber-jsx": "^3.0.0",
     "eslint-plugin-react": "~7.11.1",
-    "jsdom": "^15.0.0",
+    "jsdom": "^16.5.0",
     "ocular-dev-tools": "^0.1.0",
     "pre-commit": "^1.2.2",
     "reify": "^0.18.1",
