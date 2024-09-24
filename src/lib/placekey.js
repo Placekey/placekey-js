@@ -65,7 +65,8 @@ const REPLACEMENT_MAP_FORWARD = {
 const FIRST_TUPLE_REGEX = `[${ALPHABET}${REPLACEMENT_CHARS}${PADDING_CHAR}]{3}`;
 const TUPLE_REGEX = `[${ALPHABET}${REPLACEMENT_CHARS}]{3}`;
 const WHERE_REGEX = new RegExp(`^${[FIRST_TUPLE_REGEX, TUPLE_REGEX, TUPLE_REGEX].join('-')}$`);
-const WHAT_REGEX = new RegExp(`^[${ALPHABET}]{3,}(-[${ALPHABET}]{3,})?$`);
+const WHAT_REGEX_V1 = new RegExp(`^[${ALPHABET}]{3,}(-[${ALPHABET}]{3,})?$`);
+const WHAT_REGEX_V2 = new RegExp('^[01][abcdefghijklmnopqrstuvwxyz234567]{9}$');
 
 // Boolean for whether or not a Placekey is valid.
 export function placekeyIsValid(placekey) {
@@ -82,7 +83,9 @@ export function placekeyIsValid(placekey) {
   }
 
   if (what) {
-    return Boolean(where.match(WHERE_REGEX) && what.match(WHAT_REGEX));
+    return Boolean(
+      where.match(WHERE_REGEX) && (what.match(WHAT_REGEX_V1) || what.match(WHAT_REGEX_V2))
+    );
   }
   return Boolean(where.match(WHERE_REGEX));
 }
