@@ -83,7 +83,9 @@ export function placekeyIsValid(placekey) {
   }
 
   if (what) {
-    return Boolean(where.match(WHERE_REGEX) && (what.match(WHAT_REGEX_V1) || what.match(WHAT_REGEX_V2)));
+    return Boolean(
+      where.match(WHERE_REGEX) && (what.match(WHAT_REGEX_V1) || what.match(WHAT_REGEX_V2))
+    );
   }
   return Boolean(where.match(WHERE_REGEX));
 }
